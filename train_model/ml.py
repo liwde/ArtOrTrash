@@ -3,38 +3,11 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from datetime import datetime
 
+from .constants import *
+from .util import load_image
 
-IMAGE_SIZE = 224 # Default image size for use with MobileNetV2
-BATCH_SIZE = 32 # Function to load and preprocess each image
-IMG_SHAPE = (IMAGE_SIZE, IMAGE_SIZE, 3)
 
-IMAGE_MEAN = 127.5 # Needed as input for MobileNet
-IMAGE_STD = 127.5
-
-LEARNING_RATE = 0.0001
-LEARNING_RATE_FINETUNE = LEARNING_RATE / 10
-
-NUM_EPOCHS = 30
-VAL_STEPS = 20
-
-# Increase training epochs for fine-tuning
-NUM_EPOCHS_FINETUNE = 30
-NUM_EPOCHS_TOTAL =  NUM_EPOCHS + NUM_EPOCHS_FINETUNE
-
-PATH_ART = './downloads/art/'
-PATH_TRASH = './downloads/trash/'
-PATH_MODEL = 'model.h5'
-
-LOGDIR="logs/scalars/"
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=LOGDIR)
-
-
-def _parse_fn(filename, label=None):
-    img_raw = tf.io.read_file(filename)
-    img_tensor = tf.image.decode_jpeg(img_raw, channels=3)
-    img_final = tf.image.resize(img_tensor, (IMAGE_SIZE, IMAGE_SIZE))
-    img_final = (img_final-IMAGE_MEAN)/IMAGE_STD
-    return img_final, label
 
 
 def get_data():
@@ -55,10 +28,10 @@ def get_data():
         (tf.constant(val_filenames), tf.constant(val_labels))
     )
 
-    # Run _parse_fn over each example in train and val datasets
+    # Run load_image over each example in train and val datasets
     # Also shuffle and create batches
-    train_data = train_data.map(_parse_fn).shuffle(buffer_size=10000).batch(BATCH_SIZE)
-    val_data = val_data.map(_parse_fn).shuffle(buffer_size=10000).batch(BATCH_SIZE)
+    train_data = train_data.map(load_image).shuffle(buffer_size=10000).batch(BATCH_SIZE)
+    val_data = val_data.map(load_image).shuffle(buffer_size=10000).batch(BATCH_SIZE)
     
     return train_data, val_data, num_train
 
