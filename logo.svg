@@ -16,7 +16,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="logo.svg">
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="/home/lukas/Desktop/artorjunk/classifer_app/app/src/main/res/drawable-xxhdpi/logo.png"
+   inkscape:export-xdpi="146.64191"
+   inkscape:export-ydpi="146.64191">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -310,50 +313,54 @@ RU5ErkJggg==
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:18.52083397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="90.382004"
+       x="92.498672"
        y="293.47366"
        id="text3726-8"><tspan
          sodipodi:role="line"
          id="tspan3724-5"
-         x="90.382004"
+         x="92.498672"
          y="293.47366"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.93333435px;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#ffffff;stroke-width:0.26458335px">weg?</tspan></text>
     <g
        id="g3839"
-       transform="translate(0,0.9105836)">
-      <text
-         id="text3730-0"
-         y="283.9856"
-         x="79.629623"
-         style="font-style:normal;font-weight:normal;font-size:18.52083397px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           id="tspan3740-8"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#ffffff;stroke-width:0.26458335px"
-           y="283.9856"
+       transform="translate(-0.07812032,0.9105836)">
+      <g
+         id="g3866"
+         transform="translate(0,0.12029729)">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:18.52083397px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            x="79.629623"
-           sodipodi:role="line">oder</tspan></text>
-      <text
-         id="text3746-7"
-         y="292.27097"
-         x="80.785324"
-         style="font-style:normal;font-weight:normal;font-size:5.64444494px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#ffffff;stroke-width:0.26458335px"
-           y="292.27097"
+           y="283.9856"
+           id="text3730-0"><tspan
+             sodipodi:role="line"
+             x="79.629623"
+             y="283.9856"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#ffffff;stroke-width:0.26458335px"
+             id="tspan3740-8">oder</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:5.64444494px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            x="80.785324"
-           id="tspan3744-6"
-           sodipodi:role="line">das</tspan></text>
-      <text
-         id="text3730-0-3"
-         y="288.1283"
-         x="79.572296"
-         style="font-style:normal;font-weight:normal;font-size:18.52083397px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           id="tspan3740-8-5"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#ffffff;stroke-width:0.26458335px"
-           y="288.1283"
+           y="292.27097"
+           id="text3746-7"><tspan
+             sodipodi:role="line"
+             id="tspan3744-6"
+             x="80.785324"
+             y="292.27097"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#ffffff;stroke-width:0.26458335px">das</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:18.52083397px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            x="79.572296"
-           sodipodi:role="line">kann</tspan></text>
+           y="288.1283"
+           id="text3730-0-3"><tspan
+             sodipodi:role="line"
+             x="79.572296"
+             y="288.1283"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';fill:#ffffff;stroke-width:0.26458335px"
+             id="tspan3740-8-5">kann</tspan></text>
+      </g>
     </g>
   </g>
 </svg>
