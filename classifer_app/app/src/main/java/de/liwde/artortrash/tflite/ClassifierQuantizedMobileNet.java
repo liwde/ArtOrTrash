@@ -59,7 +59,7 @@ public class ClassifierQuantizedMobileNet extends Classifier {
   @Override
   protected int getNumBytesPerChannel() {
     // the quantized model uses a single byte only
-    return 1;
+    return 4;
   }
 
   @Override
