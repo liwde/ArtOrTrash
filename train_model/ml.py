@@ -20,7 +20,7 @@ NUM_EPOCHS_TOTAL =  NUM_EPOCHS + NUM_EPOCHS_FINETUNE
 
 PATH_ART = './downloads/art/'
 PATH_TRASH = './downloads/trash/'
-PATH_MODEL = 'model'
+PATH_MODEL = 'model.h5'
 
 LOGDIR="logs/scalars/"
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=LOGDIR)
