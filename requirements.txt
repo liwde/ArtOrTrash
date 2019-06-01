@@ -1,3 +1,4 @@
 google_images_download
-tensorflow==2.0.0-alpha0
+#tensorflow==2.0.0-alpha0
+tf-nightly-2.0-preview==2.0.0-dev20190529
 sklearn
