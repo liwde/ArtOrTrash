@@ -105,33 +105,25 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     final Canvas canvas = new Canvas(croppedBitmap);
     canvas.drawBitmap(rgbFrameBitmap, frameToCropTransform, null);
 
-    runInBackground(
-        new Runnable() {
-          @Override
-          public void run() {
-            if (classifier != null) {
-              final long startTime = SystemClock.uptimeMillis();
-              final List<Classifier.Recognition> results = classifier.recognizeImage(croppedBitmap);
-              lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
-              LOGGER.v("Detect: %s", results);
-              cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
+    runInBackground(() -> {
+      if (classifier != null) {
+        final long startTime = SystemClock.uptimeMillis();
+        final List<Classifier.Recognition> results = classifier.recognizeImage(croppedBitmap);
+        lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+        LOGGER.v("Detect: %s", results);
+        cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
 
-              runOnUiThread(
-                  new Runnable() {
-                    @Override
-                    public void run() {
-                      showResultsInBottomSheet(results);
-                      showFrameInfo(previewWidth + "x" + previewHeight);
-                      showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
-                      showCameraResolution(canvas.getWidth() + "x" + canvas.getHeight());
-                      showRotationInfo(String.valueOf(sensorOrientation));
-                      showInference(lastProcessingTimeMs + "ms");
-                    }
-                  });
-            }
-            readyForNextImage();
-          }
+        runOnUiThread(() -> {
+          showResultsInBottomSheet(results);
+          showFrameInfo(previewWidth + "x" + previewHeight);
+          showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
+          showCameraResolution(canvas.getWidth() + "x" + canvas.getHeight());
+          showRotationInfo(String.valueOf(sensorOrientation));
+          showInference(lastProcessingTimeMs + "ms");
         });
+      }
+      readyForNextImage();
+    });
   }
 
   @Override
@@ -154,11 +146,10 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     }
     if (device == Device.GPU && model == Model.QUANTIZED) {
       LOGGER.d("Not creating classifier: GPU doesn't support quantized models.");
-      runOnUiThread(
-          () -> {
-            Toast.makeText(this, "GPU does not yet supported quantized models.", Toast.LENGTH_LONG)
-                .show();
-          });
+      runOnUiThread(() -> {
+        Toast.makeText(this, "GPU does not yet supported quantized models.", Toast.LENGTH_LONG)
+            .show();
+      });
       return;
     }
     try {
