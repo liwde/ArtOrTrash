@@ -1,4 +1,4 @@
-package org.tensorflow.lite.examples.classification;
+package de.liwde.artortrash;
 
 /*
  * Copyright 2019 The TensorFlow Authors. All Rights Reserved.
@@ -33,9 +33,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.io.IOException;
 import java.util.List;
-import org.tensorflow.lite.examples.classification.customview.AutoFitTextureView;
-import org.tensorflow.lite.examples.classification.env.ImageUtils;
-import org.tensorflow.lite.examples.classification.env.Logger;
+import de.liwde.artortrash.customview.AutoFitTextureView;
+import de.liwde.artortrash.env.ImageUtils;
+import de.liwde.artortrash.env.Logger;
 
 public class LegacyCameraConnectionFragment extends Fragment {
   private static final Logger LOGGER = new Logger();

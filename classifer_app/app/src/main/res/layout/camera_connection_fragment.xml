@@ -17,7 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.tensorflow.lite.examples.classification.customview.AutoFitTextureView
+    <de.liwde.artortrash.customview.AutoFitTextureView
         android:id="@+id/texture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

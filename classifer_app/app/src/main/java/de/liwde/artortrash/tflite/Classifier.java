@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package org.tensorflow.lite.examples.classification.tflite;
+package de.liwde.artortrash.tflite;
 
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
@@ -34,7 +34,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 import org.tensorflow.lite.Interpreter;
-import org.tensorflow.lite.examples.classification.env.Logger;
+import de.liwde.artortrash.env.Logger;
 import org.tensorflow.lite.gpu.GpuDelegate;
 
 /** A classifier specialized to label images using TensorFlow Lite. */

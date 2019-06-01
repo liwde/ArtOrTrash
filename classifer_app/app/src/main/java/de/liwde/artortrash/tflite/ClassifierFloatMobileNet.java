@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package org.tensorflow.lite.examples.classification.tflite;
+package de.liwde.artortrash.tflite;
 
 import android.app.Activity;
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class ClassifierFloatMobileNet extends Classifier {
     // you can download this file from
     // see build.gradle for where to obtain this file. It should be auto
     // downloaded into assets.
-    return "mobilenet_v1_1.0_224.tflite";
+    return "model.tflite";
   }
 
   @Override
