@@ -8,6 +8,9 @@ IMAGE_SIZE = 224 # Default image size for use with MobileNetV2
 BATCH_SIZE = 32 # Function to load and preprocess each image
 IMG_SHAPE = (IMAGE_SIZE, IMAGE_SIZE, 3)
 
+IMAGE_MEAN = 127.5 # Needed as input for MobileNet
+IMAGE_STD = 127.5
+
 LEARNING_RATE = 0.0001
 LEARNING_RATE_FINETUNE = LEARNING_RATE / 10
 
@@ -30,7 +33,7 @@ def _parse_fn(filename, label=None):
     img_raw = tf.io.read_file(filename)
     img_tensor = tf.image.decode_jpeg(img_raw, channels=3)
     img_final = tf.image.resize(img_tensor, (IMAGE_SIZE, IMAGE_SIZE))
-    img_final = img_final/255.0
+    img_final = (img_final-IMAGE_MEAN)/IMAGE_STD
     return img_final, label
 
 

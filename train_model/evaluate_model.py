@@ -2,13 +2,15 @@ import tensorflow as tf
 
 
 IMAGE_SIZE = 224 # Default image size for use with MobileNetV2
+IMAGE_MEAN = 127.5
+IMAGE_STD = 127.5
 
 
 def _parse_fn(filename, label=None):
     img_raw = tf.io.read_file(filename)
     img_tensor = tf.image.decode_jpeg(img_raw, channels=3)
     img_final = tf.image.resize(img_tensor, (IMAGE_SIZE, IMAGE_SIZE))
-    img_final = img_final/255.0
+    img_final = (img_final-IMAGE_MEAN)/IMAGE_STD
     return img_final, label
 
 
