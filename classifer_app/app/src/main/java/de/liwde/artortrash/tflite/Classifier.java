@@ -54,9 +54,6 @@ public abstract class Classifier {
     GPU
   }
 
-  /** Number of results to show in the UI. */
-  private static final int MAX_RESULTS = 1;
-
   /** Dimensions of inputs. */
   private static final int DIM_BATCH_SIZE = 1;
 
@@ -71,8 +68,6 @@ public abstract class Classifier {
   /** The loaded TensorFlow Lite model. */
   private MappedByteBuffer tfliteModel;
 
-  /** Labels corresponding to the output of the vision model. */
-  private List<String> labels;
 
   /** Optional GPU delegate for accleration. */
   private GpuDelegate gpuDelegate = null;
@@ -103,12 +98,6 @@ public abstract class Classifier {
 
   /** An immutable result returned by a Classifier describing what was recognized. */
   public static class Recognition {
-    /**
-     * A unique identifier for what has been recognized. Specific to the class, not the instance of
-     * the object.
-     */
-    private final String id;
-
     /** Display name for the recognition. */
     private final String title;
 
@@ -117,19 +106,9 @@ public abstract class Classifier {
      */
     private final Float confidence;
 
-    /** Optional location within the source image for the location of the recognized object. */
-    private RectF location;
-
-    public Recognition(
-        final String id, final String title, final Float confidence, final RectF location) {
-      this.id = id;
+    public Recognition(final String title, final Float confidence) {
       this.title = title;
       this.confidence = confidence;
-      this.location = location;
-    }
-
-    public String getId() {
-      return id;
     }
 
     public String getTitle() {
@@ -140,31 +119,15 @@ public abstract class Classifier {
       return confidence;
     }
 
-    public RectF getLocation() {
-      return new RectF(location);
-    }
-
-    public void setLocation(RectF location) {
-      this.location = location;
-    }
-
     @Override
     public String toString() {
       String resultString = "";
-      if (id != null) {
-        resultString += "[" + id + "] ";
-      }
-
       if (title != null) {
         resultString += title + " ";
       }
 
       if (confidence != null) {
         resultString += String.format("(%.1f%%) ", confidence * 100.0f);
-      }
-
-      if (location != null) {
-        resultString += location + " ";
       }
 
       return resultString.trim();
@@ -187,7 +150,6 @@ public abstract class Classifier {
     }
     tfliteOptions.setNumThreads(numThreads);
     tflite = new Interpreter(tfliteModel, tfliteOptions);
-    labels = loadLabelList(activity);
     imgData =
         ByteBuffer.allocateDirect(
             DIM_BATCH_SIZE
@@ -197,19 +159,6 @@ public abstract class Classifier {
                 * getNumBytesPerChannel());
     imgData.order(ByteOrder.nativeOrder());
     LOGGER.d("Created a Tensorflow Lite Image Classifier.");
-  }
-
-  /** Reads label list from Assets. */
-  private List<String> loadLabelList(Activity activity) throws IOException {
-    List<String> labels = new ArrayList<String>();
-    BufferedReader reader =
-        new BufferedReader(new InputStreamReader(activity.getAssets().open(getLabelPath())));
-    String line;
-    while ((line = reader.readLine()) != null) {
-      labels.add(line);
-    }
-    reader.close();
-    return labels;
   }
 
   /** Memory-map the model file in Assets. */
@@ -243,7 +192,7 @@ public abstract class Classifier {
   }
 
   /** Runs inference and returns the classification results. */
-  public List<Recognition> recognizeImage(final Bitmap bitmap) {
+  public Recognition recognizeImage(final Bitmap bitmap) {
     // Log this method so that it can be analyzed with systrace.
     Trace.beginSection("recognizeImage");
 
@@ -255,36 +204,25 @@ public abstract class Classifier {
     Trace.beginSection("runInference");
     long startTime = SystemClock.uptimeMillis();
     runInference();
+    float probability = getProbability();
+    Recognition recognition = null;
+    if (probability > .5) {
+      recognition = new Recognition(
+        "Kann weg.",
+              probability
+      );
+    } else {
+      recognition = new Recognition(
+              "Kunst!",
+              1 - probability
+      );
+    }
     long endTime = SystemClock.uptimeMillis();
     Trace.endSection();
     LOGGER.v("Timecost to run model inference: " + (endTime - startTime));
 
-    // Find the best classifications.
-    PriorityQueue<Recognition> pq =
-        new PriorityQueue<Recognition>(
-            3,
-            new Comparator<Recognition>() {
-              @Override
-              public int compare(Recognition lhs, Recognition rhs) {
-                // Intentionally reversed to put high confidence at the head of the queue.
-                return Float.compare(rhs.getConfidence(), lhs.getConfidence());
-              }
-            });
-    for (int i = 0; i < labels.size(); ++i) {
-      pq.add(
-          new Recognition(
-              "" + i,
-              labels.size() > i ? labels.get(i) : "unknown",
-              getNormalizedProbability(i),
-              null));
-    }
-    final ArrayList<Recognition> recognitions = new ArrayList<Recognition>();
-    int recognitionsSize = Math.min(pq.size(), MAX_RESULTS);
-    for (int i = 0; i < recognitionsSize; ++i) {
-      recognitions.add(pq.poll());
-    }
     Trace.endSection();
-    return recognitions;
+    return recognition;
   }
 
   /** Closes the interpreter and model to release resources. */
@@ -322,13 +260,6 @@ public abstract class Classifier {
   protected abstract String getModelPath();
 
   /**
-   * Get the name of the label file stored in Assets.
-   *
-   * @return
-   */
-  protected abstract String getLabelPath();
-
-  /**
    * Get the number of bytes that is used to store a single color channel value.
    *
    * @return
@@ -343,29 +274,27 @@ public abstract class Classifier {
   protected abstract void addPixelValue(int pixelValue);
 
   /**
-   * Read the probability value for the specified label This is either the original value as it was
+   * Read the probability value. This is either the original value as it was
    * read from the net's output or the updated value after the filter was applied.
    *
-   * @param labelIndex
    * @return
    */
-  protected abstract float getProbability(int labelIndex);
+  protected abstract float getProbability();
 
   /**
-   * Set the probability value for the specified label.
+   * Set the probability value.
    *
-   * @param labelIndex
    * @param value
    */
-  protected abstract void setProbability(int labelIndex, Number value);
+  protected abstract void setProbability(Number value);
 
   /**
-   * Get the normalized probability value for the specified label. This is the final value as it
+   * Get the normalized probability value. This is the final value as it
    * will be shown to the user.
    *
    * @return
    */
-  protected abstract float getNormalizedProbability(int labelIndex);
+  protected abstract float getNormalizedProbability();
 
   /**
    * Run inference using the prepared input in {@link #imgData}. Afterwards, the result will be
@@ -375,13 +304,4 @@ public abstract class Classifier {
    * primitive data types.
    */
   protected abstract void runInference();
-
-  /**
-   * Get the total number of labels.
-   *
-   * @return
-   */
-  protected int getNumLabels() {
-    return labels.size();
-  }
 }

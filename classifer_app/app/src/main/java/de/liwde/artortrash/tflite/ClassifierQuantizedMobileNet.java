@@ -25,7 +25,7 @@ public class ClassifierQuantizedMobileNet extends Classifier {
    * An array to hold inference results, to be feed into Tensorflow Lite as outputs. This isn't part
    * of the super class, because we need a primitive array here.
    */
-  private byte[][] labelProbArray = null;
+  private byte[][] probArray = null;
 
   /**
    * Initializes a {@code ClassifierQuantizedMobileNet}.
@@ -35,7 +35,7 @@ public class ClassifierQuantizedMobileNet extends Classifier {
   public ClassifierQuantizedMobileNet(Activity activity, Device device, int numThreads)
       throws IOException {
     super(activity, device, numThreads);
-    labelProbArray = new byte[1][getNumLabels()];
+    probArray = new byte[1][1];
   }
 
   @Override
@@ -53,12 +53,7 @@ public class ClassifierQuantizedMobileNet extends Classifier {
     // you can download this file from
     // see build.gradle for where to obtain this file. It should be auto
     // downloaded into assets.
-    return "model_quant.tflite";
-  }
-
-  @Override
-  protected String getLabelPath() {
-    return "labels.txt";
+    return "model.quant.tflite";
   }
 
   @Override
@@ -75,22 +70,22 @@ public class ClassifierQuantizedMobileNet extends Classifier {
   }
 
   @Override
-  protected float getProbability(int labelIndex) {
-    return labelProbArray[0][labelIndex];
+  protected float getProbability() {
+    return probArray[0][0];
   }
 
   @Override
-  protected void setProbability(int labelIndex, Number value) {
-    labelProbArray[0][labelIndex] = value.byteValue();
+  protected void setProbability(Number value) {
+    probArray[0][0] = value.byteValue();
   }
 
   @Override
-  protected float getNormalizedProbability(int labelIndex) {
-    return (labelProbArray[0][labelIndex] & 0xff) / 255.0f;
+  protected float getNormalizedProbability() {
+    return (probArray[0][0] & 0xff) / 255.0f;
   }
 
   @Override
   protected void runInference() {
-    tflite.run(imgData, labelProbArray);
+    tflite.run(imgData, probArray);
   }
 }

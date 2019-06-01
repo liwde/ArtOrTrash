@@ -27,7 +27,6 @@ import android.util.Size;
 import android.util.TypedValue;
 import android.widget.Toast;
 import java.io.IOException;
-import java.util.List;
 import de.liwde.artortrash.env.BorderedText;
 import de.liwde.artortrash.env.ImageUtils;
 import de.liwde.artortrash.env.Logger;
@@ -108,13 +107,13 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     runInBackground(() -> {
       if (classifier != null) {
         final long startTime = SystemClock.uptimeMillis();
-        final List<Classifier.Recognition> results = classifier.recognizeImage(croppedBitmap);
+        final Classifier.Recognition recognition = classifier.recognizeImage(croppedBitmap);
         lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
-        LOGGER.v("Detect: %s", results);
+        LOGGER.v("Detect: %s", recognition);
         cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
 
         runOnUiThread(() -> {
-          showResultsInBottomSheet(results);
+          showResultInBottomSheet(recognition);
           showFrameInfo(previewWidth + "x" + previewHeight);
           showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
           showCameraResolution(canvas.getWidth() + "x" + canvas.getHeight());
