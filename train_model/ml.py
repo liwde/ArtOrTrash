@@ -3,8 +3,8 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from datetime import datetime
 
-from .constants import *
-from .util import load_image
+from constants import *
+from util import load_image
 
 
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=LOGDIR)
