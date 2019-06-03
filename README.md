@@ -25,4 +25,4 @@ Eine Android-App, die das Kamera-Bild live klassifiziert und sagt, ob es Kunst i
 
 **Voraussetzungen:** Android Studio
 
-**Referenz:** In weiten eine leicht modifizierte Variante der offiziellen [TensorFlow Lite Image Classification Example Application](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android)
+**Referenz:** In weiten eine leicht modifizierte Variante der offiziellen [TensorFlow Lite Image Classification Example Application](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android) ([Apache-2.0-Lizenz](https://www.apache.org/licenses/LICENSE-2.0.html))
