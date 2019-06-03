@@ -25,14 +25,13 @@ import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
-import android.widget.Toast;
 import java.io.IOException;
 import de.liwde.artortrash.env.BorderedText;
 import de.liwde.artortrash.env.ImageUtils;
 import de.liwde.artortrash.env.Logger;
 import de.liwde.artortrash.tflite.Classifier;
 import de.liwde.artortrash.tflite.Classifier.Device;
-import de.liwde.artortrash.tflite.Classifier.Model;
+import de.liwde.artortrash.tflite.ClassifierFloatMobileNet;
 
 public class ClassifierActivity extends CameraActivity implements OnImageAvailableListener {
   private static final Logger LOGGER = new Logger();
@@ -67,7 +66,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     borderedText = new BorderedText(textSizePx);
     borderedText.setTypeface(Typeface.MONOSPACE);
 
-    recreateClassifier(getModel(), getDevice(), getNumThreads());
+    recreateClassifier(getDevice(), getNumThreads());
     if (classifier == null) {
       LOGGER.e("No classifier on preview!");
       return;
@@ -132,29 +131,20 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
       return;
     }
     final Device device = getDevice();
-    final Model model = getModel();
     final int numThreads = getNumThreads();
-    runInBackground(() -> recreateClassifier(model, device, numThreads));
+    runInBackground(() -> recreateClassifier(device, numThreads));
   }
 
-  private void recreateClassifier(Model model, Device device, int numThreads) {
+  private void recreateClassifier(Device device, int numThreads) {
     if (classifier != null) {
       LOGGER.d("Closing classifier.");
       classifier.close();
       classifier = null;
     }
-    if (device == Device.GPU && model == Model.QUANTIZED) {
-      LOGGER.d("Not creating classifier: GPU doesn't support quantized models.");
-      runOnUiThread(() -> {
-        Toast.makeText(this, "GPU does not yet supported quantized models.", Toast.LENGTH_LONG)
-            .show();
-      });
-      return;
-    }
     try {
       LOGGER.d(
-          "Creating classifier (model=%s, device=%s, numThreads=%d)", model, device, numThreads);
-      classifier = Classifier.create(this, model, device, numThreads);
+          "Creating classifier (device=%s, numThreads=%d)", device, numThreads);
+      classifier = new ClassifierFloatMobileNet(this, device, numThreads);
     } catch (IOException e) {
       LOGGER.e(e, "Failed to create classifier.");
     }

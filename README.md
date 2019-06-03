@@ -7,9 +7,10 @@ Dieses Projekt will die uralte Frage ein für alle mal lösen: Ist das Kunst ode
 Bestandteile des Projekts, um ein Tensorflow-Modell zu trainieren.
 
 1. `./download_images.sh`: Bilder von Google Images herunterladen, die zum Training verwendet werden
-2. `python3 ml.py`: Das eigentliche Machine Learning (Tensorboard: `tensorboard --logdir=logs`)
-3. `python3 tflite.py`: Konvertiere das Keras-Modell nach TensorFlow Lite
-4. `./copy_models.sh`: Kopiere das Modell in die Ressourcen der Android-App
+2. Bilder manuell nach Fehlerhaf
+3. `python3 ml.py`: Das eigentliche Machine Learning (Tensorboard: `tensorboard --logdir=logs`)
+4. `python3 tflite.py`: Konvertiere das Keras-Modell nach TensorFlow Lite
+5. `./copy_models.sh`: Kopiere das Modell in die Ressourcen der Android-App
 
 **Voraussetzungen:** `requirements.txt`, ImageMagick, ein installierter ChromeDriver.
 

@@ -49,11 +49,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.nio.ByteBuffer;
-import java.util.List;
 import de.liwde.artortrash.env.ImageUtils;
 import de.liwde.artortrash.env.Logger;
 import de.liwde.artortrash.tflite.Classifier.Device;
-import de.liwde.artortrash.tflite.Classifier.Model;
 import de.liwde.artortrash.tflite.Classifier.Recognition;
 
 public abstract class CameraActivity extends AppCompatActivity
@@ -79,11 +77,7 @@ public abstract class CameraActivity extends AppCompatActivity
   private LinearLayout gestureLayout;
   private BottomSheetBehavior sheetBehavior;
   protected TextView recognitionTextView,
-      recognition1TextView,
-      recognition2TextView,
-      recognitionValueTextView,
-      recognition1ValueTextView,
-      recognition2ValueTextView;
+      recognitionValueTextView;
   protected TextView frameValueTextView,
       cropValueTextView,
       cameraResolutionTextView,
@@ -91,11 +85,9 @@ public abstract class CameraActivity extends AppCompatActivity
       inferenceTimeTextView;
   protected ImageView bottomSheetArrowImageView;
   private ImageView plusImageView, minusImageView;
-  private Spinner modelSpinner;
   private Spinner deviceSpinner;
   private TextView threadsTextView;
 
-  private Model model = Model.FLOAT;
   private Device device = Device.CPU;
   private int numThreads = -1;
 
@@ -119,7 +111,6 @@ public abstract class CameraActivity extends AppCompatActivity
     threadsTextView = findViewById(R.id.threads);
     plusImageView = findViewById(R.id.plus);
     minusImageView = findViewById(R.id.minus);
-    modelSpinner = findViewById(R.id.model_spinner);
     deviceSpinner = findViewById(R.id.device_spinner);
     bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
     gestureLayout = findViewById(R.id.gesture_layout);
@@ -178,13 +169,11 @@ public abstract class CameraActivity extends AppCompatActivity
     rotationTextView = findViewById(R.id.rotation_info);
     inferenceTimeTextView = findViewById(R.id.inference_info);
 
-    modelSpinner.setOnItemSelectedListener(this);
     deviceSpinner.setOnItemSelectedListener(this);
 
     plusImageView.setOnClickListener(this);
     minusImageView.setOnClickListener(this);
 
-    model = Model.valueOf(modelSpinner.getSelectedItem().toString().toUpperCase());
     device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
     numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
   }
@@ -439,18 +428,6 @@ public abstract class CameraActivity extends AppCompatActivity
     inferenceTimeTextView.setText(inferenceTime);
   }
 
-  protected Model getModel() {
-    return model;
-  }
-
-  private void setModel(Model model) {
-    if (this.model != model) {
-      LOGGER.d("Updating  model: " + model);
-      this.model = model;
-      onInferenceConfigurationChanged();
-    }
-  }
-
   protected Device getDevice() {
     return device;
   }
@@ -510,9 +487,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
   @Override
   public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-    if (parent == modelSpinner) {
-      setModel(Model.valueOf(parent.getItemAtPosition(pos).toString().toUpperCase()));
-    } else if (parent == deviceSpinner) {
+    if (parent == deviceSpinner) {
       setDevice(Device.valueOf(parent.getItemAtPosition(pos).toString()));
     }
   }

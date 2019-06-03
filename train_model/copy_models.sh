@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp ./model.*.tflite ../classifier_app/app/src/main/assets
+cp ./model.float.tflite ../classifier_app/app/src/main/assets

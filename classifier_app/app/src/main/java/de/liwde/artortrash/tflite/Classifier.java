@@ -41,11 +41,6 @@ import org.tensorflow.lite.gpu.GpuDelegate;
 public abstract class Classifier {
   private static final Logger LOGGER = new Logger();
 
-  /** The model type used for classification. */
-  public enum Model {
-    FLOAT,
-    QUANTIZED,
-  }
 
   /** The runtime device type used for executing classification. */
   public enum Device {
@@ -77,24 +72,6 @@ public abstract class Classifier {
 
   /** A ByteBuffer to hold image data, to be feed into Tensorflow Lite as inputs. */
   protected ByteBuffer imgData = null;
-
-  /**
-   * Creates a classifier with the provided configuration.
-   *
-   * @param activity The current Activity.
-   * @param model The model to use for classification.
-   * @param device The device to use for classification.
-   * @param numThreads The number of threads to use for classification.
-   * @return A classifier with the desired configuration.
-   */
-  public static Classifier create(Activity activity, Model model, Device device, int numThreads)
-      throws IOException {
-    if (model == Model.QUANTIZED) {
-      return new ClassifierQuantizedMobileNet(activity, device, numThreads);
-    } else {
-      return new ClassifierFloatMobileNet(activity, device, numThreads);
-    }
-  }
 
   /** An immutable result returned by a Classifier describing what was recognized. */
   public static class Recognition {
