@@ -11,6 +11,8 @@ Dieses Projekt will die uralte Frage ein für alle mal lösen: Ist das Kunst ode
   <dd>Großartig! Während der Entwicklung wurde das neuronale Netz nur auf insgesamt 600 Bildern trainiert. Die Alpha-Version basiert schon auf fast 6000 – sie ist also 10 mal so gut!</dd>
   <dt>Ist Kunst nicht subjektiv?</dt>
   <dd>Nein! Offensichtlich kann die App ganz klar vorhersagen, was Kunst ist und was weg kann. Das Problem ist also klar gelöst, Kunst ist ab jetzt rein objektiv bewertbar.</dd>
+  <dt>Und das ist Wissenschaft?</dt>
+  <dd><a href="https://www.youtube.com/watch?v=LSWDZsq0YoE&t=13m50s">Ja, Zu 95 Prozent!</a> Es muss wissenschaftlich absolut valide sein, denn dieses Projekt hat seine eigene DOI: <a href="https://doi.org/10.5281/zenodo.3349570">10.5281/zenodo.3349570</a></dd>
   <dt>Wie sieht es mit der Privatsphäre aus?</dt>
   <dd>Die App arbeitet lokal, es gibt keinen Server, keine Bilder werden irgendwohin gesendet oder gespeichert. Wenn du misstrauisch bist, kannst du sie auch einfach selbst kompilieren</dd>
   <dt>Wie kommt man auf so eine Idee?</dt>
